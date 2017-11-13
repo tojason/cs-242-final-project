@@ -1,0 +1,15 @@
+.Home {
+    color: skyblue;
+    text-align: center;
+}
+
+.list {
+  height: 100px;
+  overflow:hidden;
+  overflow-y:scroll;
+  border: 1px solid orange;
+
+  li {
+    list-style: none;
+  }
+}
