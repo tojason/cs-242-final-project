@@ -1,0 +1,8 @@
+.Document {
+  border: 4px solid Chartreuse;
+
+  &.title {
+    padding-top: 2em;
+    padding-bottom: 2em;
+  }
+}
