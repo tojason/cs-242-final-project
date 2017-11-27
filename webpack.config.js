@@ -22,7 +22,7 @@ const config = {
 
     context: path.join(__dirname, 'source'),
 
-	module: {
+    module: {
         loaders : [
 
             {

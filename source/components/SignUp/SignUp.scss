@@ -1,0 +1,11 @@
+
+.SignUp{
+  max-width: 300px !important;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(50%);
+
+  .title {
+    text-align: center;
+  }
+}

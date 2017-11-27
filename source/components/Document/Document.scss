@@ -1,8 +1,14 @@
 .Document {
-  border: 4px solid Chartreuse;
+  border: 5px solid PaleTurquoise;
 
   &.title {
     padding-top: 2em;
     padding-bottom: 2em;
+  }
+
+  .mc-answer-box {
+    .mc-answer-tag {
+      float: right;
+    }
   }
 }

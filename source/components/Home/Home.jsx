@@ -239,6 +239,11 @@ class Home extends Component {
               </Grid.Column>
             </Grid.Row>
           </Grid>
+          <Segment textAlign='center'>
+            Footer
+            <br/>
+            Reference: useful links
+          </Segment>
       </Container>
     )
   }

@@ -1,40 +1,56 @@
 import React, { Component } from 'react'
-import { Segment, Button, Divider, Input, Grid, Container, Header } from 'semantic-ui-react'
-import styles from './Login.scss'
 import { Link } from 'react-router-dom'
+import {
+      Container,
+      Header,
+      Divider,
+      Segment,
+      Menu,
+      Button,
+      Input,
+      List,
+      Grid,
+      Accordion,
+      Icon,
+      Table,
+      Form,
+      Label,
+      TextArea,
+      Dropdown
+    } from 'semantic-ui-react'
 import axios from 'axios' // api
 
-class Login extends Component {
+import styles from './SignUp.scss'
+
+class SignUp extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       user: {
         email: '',
         password: '',
       },
-      message: 'User Not Login',
+      message: '',
     };
 
     axios.defaults.headers.post['Content-Type'] = 'application/json'; // for POST requests
 
-    this.isLogin = false;
-
-    this.onLogin = this.onLogin.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onSignUp = this.onSignUp.bind(this);
   }
 
-  onLogin() {
+  onSignUp() {
     console.log(this.state.user);
-    axios.post('http://localhost:8080/api/login', this.state.user)
+    axios.post('http://localhost:8080/api/register', this.state.user)
     .then((response) => {
       if (response.status === 200) {
         console.log('login sucess');
         this.setState({
-          message: response.data.user + " is Login!"
+          message: response.data.user + " is Sign Up!"
         });
       } else {
-        console.log('not able to login');
+        console.log('not able to sign up');
       }
     }).then((error) => {
       console.log('getting error');
@@ -66,10 +82,10 @@ class Login extends Component {
 
   render() {
     return (
-      <Container className='Login'>
+      <Container className='SignUp'>
         <Segment padded>
-          <Header size='large'>
-            Account Login
+          <Header className='title' size='large'>
+            Account SignUp
           </Header>
         </Segment>
         <Segment padded>
@@ -88,21 +104,17 @@ class Login extends Component {
             type='password'
             fluid/>
           <Button
-            onClick={this.onLogin}
+            onClick={this.onSignUp}
             primary
             fluid>Login</Button>
-          <Divider horizontal>Or</Divider>
-          <Link to='/SignUp'>
-            <Button secondary fluid>Sign Up Now</Button>
-          </Link>
           <Divider horizontal></Divider>
           <Link to='/'>
             <Button fluid>Back to Previous Page</Button>
           </Link>
         </Segment>
       </Container>
-    )
+    );
   }
 }
 
-export default Login
+export default SignUp
