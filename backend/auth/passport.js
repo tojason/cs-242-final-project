@@ -17,26 +17,26 @@ module.exports = function(passport) {
 
     // Registration Strategy
     passport.use('local-signup', new LocalStrategy({
-        usernameField : 'email',
-        passwordField : 'password',
+      usernameField : 'email',
+      passwordField : 'password',
     },
     function(email, password, done) {
-        User.findOne({'email' : email}, function(err, user) {
-            if ( err ) {
-                return done(err);
-            } else if ( user ) {
-                return done(null, false);
-            } else {
-                var newUser = new User();
+      User.findOne({'email' : email}, function(err, user) {
+        if ( err ) {
+          return done(err);
+        } else if ( user ) {
+          return done(null, false);
+        } else {
+          var new_user = new User();
 
-                newUser.email = email;
-                newUser.password = newUser.generateHash(password);
+          new_user.email = email;
+          new_user.password = new_user.generateHash(password);
 
-                newUser.save(function(err) {
-                    return done(null, newUser);
-                });
-            }
-        });
+          new_user.save(function(err) {
+            return done(null, new_user);
+          });
+        }
+      });
     }));
 
     // Login Strategy

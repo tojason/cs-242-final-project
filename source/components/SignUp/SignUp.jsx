@@ -85,10 +85,37 @@ class SignUp extends Component {
       <Container className='SignUp'>
         <Segment padded>
           <Header className='title' size='large'>
-            Account SignUp
+            Account Sign Up
           </Header>
         </Segment>
         <Segment padded>
+          <Form>
+            <Form.Field>
+              <label>Name</label>
+              <input
+                placeholder='Your Name'
+                />
+            </Form.Field>
+            <Form.Field>
+              <label>School</label>
+              <input
+                placeholder='Your University/College'
+                />
+            </Form.Field>
+            <Form.Field>
+              <label>Email (Use to Sign In)</label>
+              <input
+                placeholder='Email Address'
+                />
+            </Form.Field>
+            <Form.Field>
+              <label>Password</label>
+              <input
+                placeholder='Password'
+                />
+            </Form.Field>
+            <Button type='submit'>Sign Up</Button>
+          </Form>
           <Divider horizontal>{this.state.message}</Divider>
           <Input
             id='username'
