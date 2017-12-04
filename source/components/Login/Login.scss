@@ -1,16 +1,23 @@
 // TODO: responsive
-#username {
-  margin-top: 1.5em;
-  margin-bottom: 1em;
-}
-
-#password {
-  margin-bottom: 2em;
-}
-
 .Login {
-  max-width: 300px !important;
-  position: relative;
+  position: absolute;
   top: 50%;
-  transform: perspective(1px) translateY(50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &.ui.container {
+    width: 450px;
+  }
+
+  .header {
+    text-align: center;
+  }
+
+  .login-btn {
+    margin-top: 1.5em;
+  }
+
+  .logout-btn {
+    margin-bottom: 1em;
+  }
 }

@@ -30,7 +30,10 @@ app.route('/').get(function(req, res) {
 app.route('/SignUp').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './source/html/index.html'));
 });
-app.route('/Login').get(function(req, res) {
+app.route('/LogIn').get(function(req, res) {
+  return res.sendFile(path.join(__dirname, './source/html/index.html'));
+});
+app.route('/Create').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './source/html/index.html'));
 });
 
