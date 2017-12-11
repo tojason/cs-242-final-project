@@ -102,7 +102,7 @@ class Login extends Component {
   }
 
   handleEnterKey(event) {
-    if (event.ctrlKey && event.keyCode === 80) {
+    if (event.ctrlKey && event.key == 'Enter') {
       this.onLogin();
     }
   }

@@ -7,6 +7,8 @@ const router = express.Router();
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 
+var doc = require('./backend/routes/document');
+
 app.use(express.static('./public/'));
 
 // Allow CORS so that backend and frontend could be put on different servers
@@ -51,6 +53,8 @@ app.use(passport.session());
 
 // Get our routes
 app.use('/api', require('./backend/routes/api')(router, passport));
+
+app.use('/api/document', doc);
 
 // start the server
 app.listen(8080, () => {

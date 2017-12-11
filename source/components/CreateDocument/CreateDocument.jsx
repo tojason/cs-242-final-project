@@ -21,6 +21,7 @@ import {
     } from 'semantic-ui-react'
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import axios from 'axios'; // api
 
 import styles from './CreateDocument.scss'
 
@@ -32,11 +33,13 @@ class CreateDocument extends Component {
       title: '',
       user: '',
       data: '',
+      message: ''
     };
 
     this.isLogin = false;
 
     this.onTitleChange = this.onTitleChange.bind(this);
+    this.onUserChange = this.onUserChange.bind(this);
     this.onDataChange = this.onDataChange.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -46,25 +49,26 @@ class CreateDocument extends Component {
     const { cookies } = this.props;
 
     let user_netid = cookies.get('name');
-    if (this.netid) {
+    if (user_netid) {
       this.isLogin = true;
       this.setState({
         user: user_netid
       });
+      console.log("setting");
     } else {
       this.isLogin = false;
     }
   }
 
-  onUserChange(event) {
-    this.setState({
-      user: event.target.value
-    });
-  }
-
   onTitleChange(event) {
     this.setState({
       title: event.target.value
+    });
+  }
+
+  onUserChange(event) {
+    this.setState({
+      user: event.target.value
     });
   }
 
@@ -76,7 +80,35 @@ class CreateDocument extends Component {
   }
 
   onSubmit(event) {
-    console.log(this.state.data);
+    console.log(this.state);
+    var curr_document = {};
+    curr_document.title = this.state.title;
+    curr_document.user = this.state.user;
+    curr_document.data = this.state.data;
+    axios.post('http://localhost:8080/api/document', curr_document).then((response) => {
+      console.log('no error');
+      if (response.status == 200) {
+        this.setState({
+          message: 'Submitted'
+        });
+        console.log('submitted')
+      }
+      else if (response.status == 201) {
+        this.setState({
+          message: 'Created'
+        });
+        console.log("created")
+      }
+      else if (response.status == 500) {
+        console.log('Server Error');
+      }
+      else if (response.status == 404) {
+        console.log('')
+      }
+    }).then((error) => {
+      console.error(error);
+    });
+    // axios post
   }
 
   render() {
@@ -91,12 +123,16 @@ class CreateDocument extends Component {
           <Form>
             <Form.Field>
               <label>Title (Unique)</label>
-              <input placeholder='Document Name' />
+              <Input
+                value={this.state.title}
+                onChange={this.onTitleChange}
+                placeholder='Document Name' />
             </Form.Field>
             <Form.Field>
               <label>Owner/Netid</label>
               <Input
                 value={this.state.user}
+                onChange={this.onUserChange}
                 placeholder='User NetID'
                 />
             </Form.Field>
@@ -105,11 +141,13 @@ class CreateDocument extends Component {
               onChange={this.onDataChange}
               label='Content'
               control='textarea'
-              rows='3'
+              rows='5'
               >
             </Form.Field>
-
-            <Button onClick={this.onSubmit} type='submit'>Submit</Button>
+            <Form.Field>
+              <Button onClick={this.onSubmit} type='submit'>Submit</Button>
+              <Label>{this.state.message}</Label>
+            </Form.Field>
           </Form>
         </Segment>
       </Container>

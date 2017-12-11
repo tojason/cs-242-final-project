@@ -15,6 +15,7 @@ module.exports = function(router, passport) {
     res.status(200).json({
       user: req.user.email
     });
+    res.redirect('/');
   });
 
   return router;
