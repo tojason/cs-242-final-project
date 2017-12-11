@@ -64,13 +64,6 @@ class Home extends Component {
   }
 
   render() {
-
-    let user_btn = (
-      <Link to='/LogIn'>
-        <Button color='vk'>Log In</Button>
-      </Link>
-    );
-
     if (this.isLogin) {
       user_btn = (
         <Link to='/'>
@@ -124,7 +117,12 @@ class Home extends Component {
               <Input icon={'search'} placeholder='Search...' />
             </Menu.Item>
             <Menu.Item>
-              {user_btn}
+              <Link to='/Create'>
+                <Button color='twitter'>Create</Button>
+              </Link>
+              <Link to='/LogIn'>
+                <Button color='vk'>Log In</Button>
+              </Link>
               <Link to='/SignUp'>
                 <Button color='google plus'>Sign Up</Button>
               </Link>
