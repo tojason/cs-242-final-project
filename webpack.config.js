@@ -29,10 +29,7 @@ const config = {
                 test: /\.jsx?/,
                 exclude : [/node_modules/, /bower_components/],
                 include : APP_DIR,
-                loader : 'babel-loader',
-                query: {
-                    presets: ['es2015']
-                }
+                loader : 'babel-loader'
             },
 
             {
