@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {
       Container,
       Header,
@@ -19,12 +19,14 @@ import {
       Dropdown
     } from 'semantic-ui-react'
 import axios from 'axios' // api
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 import styles from './SignUp.scss'
 
 class SignUp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       user: {
         name: '',
@@ -48,12 +50,14 @@ class SignUp extends Component {
   }
 
   onSignUp() {
+    const { cookies } = this.props;
     this.submitted = true;
     console.log(this.state.user);
     axios.post('http://localhost:8080/api/register', this.state.user)
     .then((response) => {
       if (response.status === 200) {
         console.log('User Sign Up Success');
+        cookies.set('name', response.data.user, { path: '/' });
         this.success = true;
         this.netid = this.state.user.email;
         this.setState({
@@ -112,6 +116,7 @@ class SignUp extends Component {
     if (this.submitted) {
       if (this.success) {
         msg = this.netid + ' is Sign Up';
+        return <Redirect to='/' />;
       } else {
         msg = 'NetID Already Exist';
       }
@@ -178,4 +183,8 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp
+SignUp.propTypes = {
+  cookies: instanceOf(Cookies).isRequired
+};
+
+export default withCookies(SignUp);

@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 var doc = require('./backend/routes/document');
 
 app.use(express.static('./public/'));
+app.use(express.static('./public/assets/'));
 
 // Allow CORS so that backend and frontend could be put on different servers
 var allowCrossDomain = function (req, res, next) {
@@ -36,6 +37,9 @@ app.route('/LogIn').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './source/html/index.html'));
 });
 app.route('/Create').get(function(req, res) {
+  return res.sendFile(path.join(__dirname, './source/html/index.html'));
+});
+app.route('/Profile').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './source/html/index.html'));
 });
 

@@ -113,13 +113,6 @@ class Home extends Component {
             Course Overview
           </Menu.Item>
           <Menu.Item
-            name='editorials'
-            active={activeItem === 'editorials'}
-            onClick={this.handleItemClick}
-            >
-            Lecture Note
-          </Menu.Item>
-          <Menu.Item
             name='reviews'
             active={activeItem === 'reviews'}
             onClick={this.handleItemClick}

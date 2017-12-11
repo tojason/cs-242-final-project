@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Button, Divider, Input, Grid, Container, Header, Form } from 'semantic-ui-react';
 import styles from './Login.scss';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios'; // api
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
@@ -115,14 +115,15 @@ class Login extends Component {
     let logout = <span></span>;
     if (this.isLogin) {
       logout = (
-          <Button
-            className='logout-btn'
-            onClick={this.onLogOut}
-            color='teal'
-            fluid>
-            Log-Out
-          </Button>
-        );
+        <Button
+          className='logout-btn'
+          onClick={this.onLogOut}
+          color='teal'
+          fluid>
+          Log-Out
+        </Button>
+      );
+      return <Redirect to='/' />;
     }
 
     return (

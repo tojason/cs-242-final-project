@@ -11,6 +11,7 @@ module.exports = function(passport) {
 
   passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
+      console.log(done);
       done(err, user);
     });
   });
@@ -27,6 +28,8 @@ module.exports = function(passport) {
       } else if ( user ) {
         return done(null, false);
       } else {
+        console.log('register');
+        console.log(user);
         var new_user = new User();
 
         new_user.email = email;
