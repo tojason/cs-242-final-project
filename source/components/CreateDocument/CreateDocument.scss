@@ -6,4 +6,23 @@
   .header {
     color: teal;
   }
+
+  .input-form {
+    .item-mc {
+      // display: inline-block !important;
+      .item-mc-label {
+
+      } // end .item-mc-label
+
+      .item-mc-input {
+        margin-top: .25em;
+        margin-bottom: .25em;
+      } // end .item-mc-input
+
+      .ui.input .ui.label {
+        min-width: 50px;
+        text-align: center;
+      }
+    } // end .item-mc
+  }
 }

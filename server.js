@@ -42,6 +42,12 @@ app.route('/Create').get(function(req, res) {
 app.route('/Profile').get(function(req, res) {
   return res.sendFile(path.join(__dirname, './source/html/index.html'));
 });
+app.route('/View').get(function(req, res) {
+  return res.sendFile(path.join(__dirname, './source/html/index.html'));
+});
+app.route('/Status').get(function(req, res) {
+  return res.sendFile(path.join(__dirname, './source/html/index.html'));
+});
 
 require('./backend/models').connect("mongodb://junsitu2:password@ds119446.mlab.com:19446/cs-242-final-project");
 require('./backend/auth/passport')(passport);

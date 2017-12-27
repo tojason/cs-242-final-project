@@ -64,7 +64,7 @@ class Login extends Component {
       } else {
         console.log('not able to login');
       }
-    }).then((error) => {
+    }).catch((error) => {
       console.log('getting error');
       console.error(error);
     });

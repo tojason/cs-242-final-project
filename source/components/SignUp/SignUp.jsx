@@ -73,7 +73,7 @@ class SignUp extends Component {
       } else {
         console.log('not able to sign up');
       }
-    }).then((error) => {
+    }).catch((error) => {
       console.log('getting error');
       console.log(error);
     });

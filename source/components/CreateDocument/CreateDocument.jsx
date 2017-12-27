@@ -18,6 +18,7 @@ import {
       TextArea,
       Checkbox,
       Dropdown,
+      Transition,
       Radio,
       Select
     } from 'semantic-ui-react'
@@ -34,7 +35,6 @@ class CreateDocument extends Component {
     this.state = {
       title: '',
       user: '',
-      data: '',
       message: '',
       data: [],
       dataForm: [],
@@ -49,8 +49,8 @@ class CreateDocument extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onAdd = this.onAdd.bind(this);
     this.onSectionTitleChange = this.onSectionTitleChange.bind(this);
-    this.onSectionContentChange = this.onSectionContentChange.bind(this);
     this.handleFormSelection = this.handleFormSelection.bind(this);
+    this.onMCChange = this.onMCChange.bind(this);
   }
 
   componentWillMount() {
@@ -92,15 +92,17 @@ class CreateDocument extends Component {
     });
   }
 
-  onDataChange(event) {
-    let curr_data = this.state.data;
+  onDataChange(event, index) {
+    console.log(event.target.value);
+    console.log(index);
+    let items = this.state.data;
+    items[index].content = event.target.value;
     this.setState({
-      data: event.target.value
+      data: items
     });
   }
 
   onSubmit(event) {
-    console.log(this.state);
     var curr_document = {};
     if (this.state.title === '' && this.state.data === '') {
       this.setState({
@@ -117,40 +119,62 @@ class CreateDocument extends Component {
         this.setState({
           message: 'Submitted'
         });
-        console.log('submitted')
+        console.log('Submitted');
       }
       else if (response.status == 201) {
         this.setState({
           message: 'Created'
         });
-        console.log("created")
+        console.log("created");
       }
       else if (response.status == 500) {
         console.log('Server Error');
       }
       else if (response.status == 404) {
-        console.log('')
+        console.log('404 Not Found');
       }
-    }).then((error) => {
+    }).catch((error) => {
       console.error(error);
     });
     // axios post
   }
 
   onAdd(event) {
-
+    let items = this.state.data;
+    let first_item = {
+      title: '',
+      point: true,
+      content: '',
+      mc: ['', '', '', '', '']
+    }
+    items.push(first_item);
+    this.setState({
+      data: items
+    });
   }
 
-  onSectionTitleChange(event) {
-
+  onSectionTitleChange(event, index) {
+    let items = this.state.data;
+    items[index].title = event.target.value;
+    this.setState({
+      data: items
+    });
   }
 
-  onSectionContentChange(event) {
-
+  handleFormSelection(event, index, type) {
+    let items = this.state.data;
+    items[index].point = type;
+    this.setState({
+      data: items
+    });
   }
 
-  handleFormSelection(event) {
-
+  onMCChange(event, listIndex, index) {
+    let items = this.state.data;
+    items[listIndex].mc[index] = event.target.value;
+    this.setState({
+      data: items
+    });
   }
 
   render() {
@@ -175,7 +199,9 @@ class CreateDocument extends Component {
           </Header>
         </Segment>
         <Segment padded>
-          <Form>
+          <Form
+            className='input-form'
+            >
             <Form.Field>
               <label>Title (Unique)</label>
               <Input
@@ -191,44 +217,118 @@ class CreateDocument extends Component {
                 placeholder='User NetID'
                 />
             </Form.Field>
-            <Form.Group
-              className='doc-item'
-              grouped
-              >
-              <Form.Field>
-                <label>Item Name</label>
-                <Input
-                  value={this.state.user}
-                  onChange={this.onUserChange}
-                  placeholder='Point/Question'
-                  />
-              </Form.Field>
-              <Form.Group inline>
-                <label>Type: </label>
-                <Form.Field
-                  control={Radio}
-                  label='Point'
-                  value='1'
-                  checked={'1' === '1'}
-                  onChange={this.handleFormSelection}
-                  />
-                <Form.Field
-                  control={Radio}
-                  label='Question'
-                  value='2'
-                  checked={'2' === '1'}
-                  onChange={this.handleFormSelection}
-                  />
-              </Form.Group>
-              <Form.Field
-                value={this.state.data}
-                onChange={this.onDataChange}
-                label='Content'
-                control='textarea'
-                rows='5'
-                >
-              </Form.Field>
-            </Form.Group>
+            {
+              items.map((item, index) => {
+                let item_content = (
+                  <Form.Field
+                    value={item.content}
+                    onChange={(event) => this.onDataChange(event, index)}
+                    label='Content'
+                    control='textarea'
+                    rows='4'
+                    >
+                  </Form.Field>
+                );
+                if (item.point === false) {
+                  item_content = (
+                    <Form.Group grouped>
+                      <label>Multiple CHoice</label>
+                      <Form.Field
+                        className='item-mc'
+                        >
+                        <Input
+                          label={<Label color='teal'>A</Label>}
+                          className='item-mc-input'
+                          value={item.mc[0]}
+                          onChange={(event) => this.onMCChange(event, index, 0)}
+                          placeholder='MC A'
+                          />
+                      </Form.Field>
+                      <Form.Field
+                        className='item-mc'
+                        >
+                        <Input
+                          label={<Label color='green'>B</Label>}
+                          className='item-mc-input'
+                          value={item.mc[1]}
+                          onChange={(event) => this.onMCChange(event, index, 1)}
+                          placeholder='MC B'
+                          />
+                      </Form.Field>
+                      <Form.Field
+                        className='item-mc'
+                        >
+                        <Input
+                          label={<Label color='olive'>C</Label>}
+                          className='item-mc-input'
+                          value={item.mc[2]}
+                          onChange={(event) => this.onMCChange(event, index, 2)}
+                          placeholder='User NetID'
+                          placeholder='MC C'
+                          />
+                      </Form.Field>
+                      <Form.Field
+                        className='item-mc'
+                        >
+                        <Input
+                          label='D'
+                          label={<Label color='blue'>D</Label>}
+                          className='item-mc-input'
+                          value={item.mc[3]}
+                          onChange={(event) => this.onMCChange(event, index, 3)}
+                          placeholder='MC D'
+                          />
+                      </Form.Field>
+                      <Form.Field
+                        className='item-mc'
+                        >
+                        <Input
+                          label={<Label color='purple'>E</Label>}
+                          className='item-mc-input'
+                          value={item.mc[4]}
+                          onChange={(event) => this.onMCChange(event, index, 4)}
+                          placeholder='MC E'
+                          />
+                      </Form.Field>
+                    </Form.Group>
+                  );
+                }
+                return (
+                  <Form.Group
+                    className='doc-item'
+                    key={index}
+                    grouped
+                    >
+                    <Form.Field>
+                      <label>Point/Question</label>
+                      <Input
+                        value={item.title}
+                        onChange={(event) => this.onSectionTitleChange(event, index)}
+                        placeholder='Point/Question'
+                        />
+                    </Form.Field>
+                    <Form.Group inline>
+                      <label>Type: </label>
+                      <Form.Field
+                        control={Radio}
+                        label='Point'
+                        value="1"
+                        checked={item.point === true}
+                        onChange={(event) => this.handleFormSelection(event, index, true)}
+                        />
+                      <Form.Field
+                        control={Radio}
+                        label='Question'
+                        value="2"
+                        checked={item.point === false}
+                        onChange={(event) => this.handleFormSelection(event, index, false)}
+                        />
+                    </Form.Group>
+                    {item_content}
+                  </Form.Group>
+                );
+              })
+            }
 
             <Form.Field>
               <Button

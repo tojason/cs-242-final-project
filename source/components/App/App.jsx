@@ -8,6 +8,8 @@ import SignUp from '../SignUp/SignUp.jsx'
 import Profile from '../Profile/Profile.jsx'
 import Document from '../Document/Document.jsx'
 import CreateDocument from '../CreateDocument/CreateDocument.jsx'
+import View from '../DocumentView/View.jsx'
+import UserStatus from '../UserStatus/UserStatus.jsx'
 
 const Main = () => (
   <CookiesProvider>
@@ -19,6 +21,8 @@ const Main = () => (
         <Route exact path="/Profile" component={Profile}/>
         <Route exact path="/Document" component={Document}/>
         <Route exact path="/Create" component={CreateDocument}/>
+        <Route exact path="/View" component={View}/>
+        <Route exact path="/Status" component={UserStatus}/>
       </Switch>
     </Router>
   </CookiesProvider>
