@@ -1,7 +1,7 @@
 # How to Start?
-1. Install dependencies:
+1. Install all dependencies:
 `npm install`
-2. Run the dev server:
+2. Start Webpack Development Server:
 `npm run dev`
 3. Open `http://localhost:8080/` in the browser
 4. Check into `source/index.js` and `source/html/index.html`
