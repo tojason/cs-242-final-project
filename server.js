@@ -67,6 +67,7 @@ app.use('/api', require('./backend/routes/api')(router, passport));
 app.use('/api/document', doc);
 
 // start the server
+// NOTE: 127.0.0.1 will not work on the API call, it must use the following address
 app.listen(8080, () => {
-  console.log('Server is running on http://localhost:8080 or http://127.0.0.1:8080');
+  console.log('Server is running on http://localhost:8080');
 });
